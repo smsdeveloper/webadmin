@@ -1,0 +1,1 @@
+mybaits工具：根据数据库表自动生成domain对象和相应sql映射文件

@@ -2,7 +2,7 @@
 <configuration> 
  
  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-  	<file>d:/logs/log.log</file>
+  	<file>logs/log.log</file>
     <encoder> 
       <pattern> 
         %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
@@ -12,9 +12,6 @@
  
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
     <filter class="ch.qos.logback.classic.filter.LevelFilter"> 
-      <!-- <level>DEBUG</level> 
-      <onMatch>ACCEPT</onMatch> 
-      <onMismatch>DENY</onMismatch>  -->
     </filter> 
     <encoder> 
       <pattern> 
@@ -25,12 +22,10 @@
   
   
  
-  <logger name="net.sf.serfj" level="error"/>
-  <logger name="tf56" level="info"/>
+  <logger name="com.egouer" level="info"/>
   <logger name="org.springframework" level="info"/>
   <logger name="org.apache" level="info"/>
   <logger name="org.mybatis" level="info"/>
-  <logger name="net.sf.serfj.config.SystemConfig" level="ERROR"/>
   
   <root level="DEBUG"> 
     <appender-ref ref="STDOUT" /> 
