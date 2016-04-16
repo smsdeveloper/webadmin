@@ -8,14 +8,221 @@
   <name>webadmin Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
+	<!-- logback -->
+	<dependency>  
+	    <groupId>ch.qos.logback</groupId>  
+	    <artifactId>logback-classic</artifactId>  
+	    <version>1.1.3</version>  
+	</dependency>  
+	<dependency>  
+	    <groupId>org.logback-extensions</groupId>  
+	    <artifactId>logback-ext-spring</artifactId>  
+	    <version>0.1.2</version>  
+	</dependency>  
+	<dependency>  
+	    <groupId>org.slf4j</groupId>  
+	    <artifactId>jcl-over-slf4j</artifactId>  
+	    <version>1.7.12</version>  
+	</dependency>
+	<!-- spring -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>4.1.1.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>4.1.0.RELEASE</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>4.1.1.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>4.1.1.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>4.1.1.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+		<version>4.1.1.RELEASE</version>
+	</dependency>
+	<!-- ibatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.2.8</version>
+	</dependency>
+	<!-- mysql -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.33</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-dbcp2</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+	<!-- apache common -->
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.9.2</version>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.12</version>
+		<scope>test</scope>
+	</dependency>
+	<!-- aop -->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.8.0</version>
+	</dependency>
+	<!-- servlet -->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.1.0</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- jstl -->
+	<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
   </dependencies>
+  
+  <repositories>
+  	<!-- tomcat插件 -->
+	<repository>
+		<id>people.apache.snapshots</id>
+		<url>http://repository.apache.org/content/groups/snapshots-group/</url>
+		<releases>
+			<enabled>false</enabled>
+		</releases>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</repository>
+  </repositories>
+  <!-- tomcat插件 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache.snapshots</id>
+			<name>Apache Snapshots</name>
+			<url>http://repository.apache.org/content/groups/snapshots-group/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
   <build>
     <finalName>webadmin</finalName>
+    <plugins>
+    	<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.5.1</version>
+			<executions>
+				<execution>
+					<id>default-testCompile</id>
+					<phase>test-compile</phase>
+					<goals>
+						<goal>testCompile</goal>
+					</goals>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<encoding>UTF8</encoding>
+					</configuration>
+				</execution>
+				<execution>
+					<id>default-compile</id>
+					<phase>compile</phase>
+					<goals>
+						<goal>compile</goal>
+					</goals>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<encoding>UTF8</encoding>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.2</version>
+			<configuration>
+				<webResources>
+					<resource>
+						<directory>${basedir}/publish/${package.environment}</directory>
+						<targetPath>WEB-INF/classes/config</targetPath>
+						<filtering>true</filtering>
+					</resource>
+				</webResources>
+			</configuration>
+			<executions>
+				<execution>
+					<id>default-war</id>
+					<phase>package</phase>
+					<goals>
+						<goal>war</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+    </plugins>
   </build>
+  <profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<log.level>debug</log.level>
+				<log.dir>/httx/logs/tomcat/${project.artifactId}.log</log.dir>
+				<appName>${project.artifactId}</appName>
+				<package.environment>test</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>product</id>
+			<properties>
+				<log.level>info</log.level>
+				<log.dir>/httx/logs/out.log</log.dir>
+				<appName>${project.artifactId}</appName>
+				<package.environment>product</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<log.level>info</log.level>
+				<log.dir>/httx/logs/tomcat/${project.artifactId}.log</log.dir>
+				<appName>${project.artifactId}</appName>
+				<package.environment>dev</package.environment>
+			</properties>
+		</profile>
+	</profiles>
 </project>
