@@ -47,12 +47,12 @@
         <property name="suffix" value=".jsp"/>  
     </bean>
 	<!-- 拦截器 -->
-    <!-- <mvc:interceptors>
+   	<mvc:interceptors>
     	<mvc:interceptor>
     		<mvc:mapping path="/**"/>
-    		<bean id="permissionInterceptor" class="tf56.gdlp.auth.interceptor.PermissionInterceptor"/>
+    		<bean id="permissionInterceptor" class="com.egouer.admin.auth.interceptor.PermissionInterceptor"/>
     	</mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
     <import resource="redis-client.xml"/> 
     <!-- AOP -->
     <aop:aspectj-autoproxy />

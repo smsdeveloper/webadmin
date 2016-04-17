@@ -42,7 +42,6 @@ public class Userc extends BaseController{
 			}
 			if(StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword()))
 			{
-				model.addAttribute(ERROR_MSG, "登录失败，帐号错误");
 				return this.toView();
 			}
 			if(userService.checkUser(request,response,user))

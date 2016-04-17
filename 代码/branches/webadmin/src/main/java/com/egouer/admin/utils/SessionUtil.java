@@ -57,6 +57,7 @@ public class SessionUtil {
 	public static SessionBean getSession(HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		Cookie[] cookies = request.getCookies();
+		if(cookies == null) return null;
 		String value = null;
 		for(Cookie cookie : cookies)
 		{
