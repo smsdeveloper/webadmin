@@ -115,11 +115,32 @@
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
 	</dependency>
+	<dependency> 
+	    <groupId>taglibs</groupId> 
+	    <artifactId>standard</artifactId> 
+		<version>1.1.2</version>
+	</dependency> 
 	<!-- json -->
 	<dependency>
 		<groupId>com.alibaba</groupId>
 		<artifactId>fastjson</artifactId>
 		<version>1.2.8</version>
+	</dependency>
+	<!-- apache common -->
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.9.2</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.6</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>2.4</version>
 	</dependency>
   </dependencies>
   

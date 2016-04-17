@@ -24,6 +24,7 @@
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Log in</div>
+				${error_msg}
 				<div class="panel-body">
 					<form role="form" action="/login" method="post">
 						<fieldset>
@@ -38,7 +39,7 @@
 									<input name="remember" type="checkbox" value="Remember Me">Remember Me
 								</label>
 							</div>
-							<a href="javascript:void(0)" class="btn btn-primary">Login</a>
+							<a href="javascript:void(0)" id="login" class="btn btn-primary">Login</a>
 						</fieldset>
 					</form>
 				</div>
@@ -49,11 +50,8 @@
 		
 
 	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/auth/user.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script>
 		!function ($) {

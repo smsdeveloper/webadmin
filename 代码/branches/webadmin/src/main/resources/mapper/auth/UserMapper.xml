@@ -23,4 +23,9 @@
     -->
     userId, userName, password, status, addTime, updateTime
   </sql>
+  
+  <select id="checkUser" parameterType="com.egouer.admin.auth.domain.User" resultType="com.egouer.admin.auth.domain.User">
+  	select <include refid="Base_Column_List"/> from User t 
+  	where t.userName = #{username} and t.password = #{password} and t.status = #{status}
+  </select>
 </mapper>
