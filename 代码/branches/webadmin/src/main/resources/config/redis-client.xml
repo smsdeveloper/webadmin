@@ -59,11 +59,5 @@
 		</property>
 	</bean>
 	
-	<bean id="queueClient" class="com.tf56.queue.client.QueueClientImpl">
-		<property name="redisTemplate">
-			<ref bean="redisTemplate"/>
-		</property>
-	</bean>
-    
     
 </beans>

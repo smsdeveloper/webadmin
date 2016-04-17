@@ -52,8 +52,8 @@
     		<mvc:mapping path="/**"/>
     		<bean id="permissionInterceptor" class="tf56.gdlp.auth.interceptor.PermissionInterceptor"/>
     	</mvc:interceptor>
-    </mvc:interceptors>
-    <import resource="redis-client.xml"/> -->
+    </mvc:interceptors>-->
+    <import resource="redis-client.xml"/> 
     <!-- AOP -->
     <aop:aspectj-autoproxy />
 </beans>

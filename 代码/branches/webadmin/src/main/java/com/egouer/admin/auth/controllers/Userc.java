@@ -1,7 +1,8 @@
 package com.egouer.admin.auth.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -28,21 +29,25 @@ import com.egouer.admin.utils.SpringContext;
 public class Userc extends BaseController{
 	private static final Logger log = LoggerFactory.getLogger(Userc.class);
 	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="login")
-	public ModelAndView login(Model model,User user)
+	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,Model model,User user)
 	{
 		this.setPath("login");
 		log.info("username:{},pwd:{}",user.getUsername(), user.getPassword());
 		try{
+			UserService userService = (UserService)SpringContext.getBean("userService");
+			if(userService.isRelogin(request))
+			{
+				this.setPath("redirect:index");
+				return this.toView();
+			}
 			if(StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword()))
 			{
 				model.addAttribute(ERROR_MSG, "登录失败，帐号错误");
 				return this.toView();
 			}
-			
-			UserService userService = (UserService)SpringContext.getBean("userService");
-			if(userService.checkUser(user))
+			if(userService.checkUser(request,response,user))
 			{
-				this.setPath("index");
+				this.setPath("redirect:index");
 				return this.toView();
 			}
 			model.addAttribute(ERROR_MSG, "登录失败，帐号错误");
