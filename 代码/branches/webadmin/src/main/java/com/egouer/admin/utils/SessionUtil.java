@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
@@ -58,15 +59,8 @@ public class SessionUtil {
 	{
 		Cookie[] cookies = request.getCookies();
 		if(cookies == null) return null;
-		String value = null;
-		for(Cookie cookie : cookies)
-		{
-			if(cookie.getName().equals(SESSION_KEY))
-			{
-				value = cookie.getValue();
-				break;
-			}
-		}
+		String value = getSessionKey(cookies);
+		
 		if(StringUtils.isNotEmpty(value))
 		{
 			RedisUtil redisUtil = (RedisUtil)SpringContext.getBean("redisUtil");
@@ -74,5 +68,34 @@ public class SessionUtil {
 			return JSON.parseObject(session, SessionBean.class);
 		}
 		return null;
+	}
+	
+	private static String getSessionKey(Cookie cookies[])
+	{
+		for(Cookie cookie : cookies)
+		{
+			if(cookie.getName().equals(SESSION_KEY))
+			{
+				return cookie.getValue();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 删除sessionkey
+	 * @param request
+	 */
+	public static void removeSession(HttpServletRequest request,HttpServletResponse response) 
+	{
+		Cookie[] cookies = request.getCookies();
+		if(cookies == null) return;
+		String value = getSessionKey(cookies);
+		response.addCookie(null);
+		if(StringUtils.isNotEmpty(value))
+		{
+			RedisUtil redisUtil = (RedisUtil)SpringContext.getBean("redisUtil");
+			redisUtil.remove(value);
+		}
 	}
 }

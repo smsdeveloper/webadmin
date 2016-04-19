@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.egouer.admin.auth.domain.User;
 import com.egouer.admin.auth.services.UserService;
 import com.egouer.admin.base.BaseController;
+import com.egouer.admin.utils.SessionUtil;
 import com.egouer.admin.utils.SpringContext;
 @RestController
 public class Userc extends BaseController{
@@ -61,6 +62,20 @@ public class Userc extends BaseController{
 	public ModelAndView userlist(HttpServletRequest request,Model model)
 	{
 		this.setPath("auth/userlist");
+		return this.toView();
+	}
+	/**
+	 * 注销
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="logout")
+	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response)
+	{
+		this.setPath("login");
+		SessionUtil.removeSession(request,response);
+		
 		return this.toView();
 	}
 

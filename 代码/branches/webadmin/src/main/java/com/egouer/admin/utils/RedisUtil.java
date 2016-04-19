@@ -39,4 +39,18 @@ public class RedisUtil {
 			}
 		});
 	}
+	
+	public boolean remove(final String key)
+	{
+		Long num = redisTemplate.execute(new RedisCallback<Long>() {
+			public Long doInRedis(RedisConnection connection) {
+				return connection.del(key.getBytes());
+			}
+		}, true);
+		if(num != null && num == 0)
+		{
+			return true;
+		}
+		return false;
+	}
 }
