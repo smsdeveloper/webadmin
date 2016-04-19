@@ -20,6 +20,7 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop.xsd"
 		default-lazy-init="false" default-autowire="byName">
+	<context:component-scan base-package="com.egouer.admin"/>
     <mvc:annotation-driven>
     	<!-- 使用fastjson返回序列化结果 -->
     	<mvc:message-converters register-defaults="true">  
@@ -28,7 +29,7 @@
             </bean>  
         </mvc:message-converters>
     </mvc:annotation-driven>
-	<context:component-scan base-package="com.egouer.admin"/>
+	
    <!-- 引入jdbc配置文件 -->  
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">

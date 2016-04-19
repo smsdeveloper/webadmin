@@ -14,5 +14,11 @@
 	</settings>
 	<mappers>
 		<mapper resource="mapper/auth/UserMapper.xml" />
+		<mapper resource="mapper/auth/FunctionMapper.xml" />
+		<mapper resource="mapper/auth/MenuMapper.xml" />
+		<mapper resource="mapper/auth/RoleFunctionMapper.xml" />
+		<mapper resource="mapper/auth/RoleMapper.xml" />
+		<mapper resource="mapper/auth/RoleMenuMapper.xml" />
+		<mapper resource="mapper/auth/UserRoleMapper.xml" />
 	</mappers>
 </configuration>

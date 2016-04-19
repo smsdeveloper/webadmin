@@ -56,5 +56,12 @@ public class Userc extends BaseController{
 		}
 		return this.toView();
 	}
+	
+	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="auth/userlist")
+	public ModelAndView userlist(HttpServletRequest request,Model model)
+	{
+		this.setPath("auth/userlist");
+		return this.toView();
+	}
 
 }
