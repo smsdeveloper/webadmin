@@ -23,12 +23,9 @@ public class BaseController {
 		return new ModelAndView(this.getPath());
 	}
 	
-	public void setJsonResult(String result,String msg,String code,Object data,long count)
+	public void setJsonResult(String result,String msg,String code,Object data,int count)
 	{
-		if(jsonResult == null)
-		{
-			jsonResult = new JsonResult(result,msg,code,data,count);
-		}
+		this.jsonResult = new JsonResult(result,msg,code,data,count);
 	}
 	
 	public JsonResult getJsonResult()

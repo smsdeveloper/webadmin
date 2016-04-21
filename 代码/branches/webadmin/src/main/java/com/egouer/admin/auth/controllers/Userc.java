@@ -1,6 +1,8 @@
 package com.egouer.admin.auth.controllers;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.egouer.admin.auth.domain.User;
 import com.egouer.admin.auth.services.UserService;
 import com.egouer.admin.base.BaseController;
+import com.egouer.admin.utils.JsonResult;
 import com.egouer.admin.utils.SessionUtil;
 import com.egouer.admin.utils.SpringContext;
 @RestController
@@ -58,11 +61,29 @@ public class Userc extends BaseController{
 		return this.toView();
 	}
 	
-	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="auth/userlist")
-	public ModelAndView userlist(HttpServletRequest request,Model model)
+	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="auth/usermanage")
+	public ModelAndView userManage()
 	{
 		this.setPath("auth/userlist");
 		return this.toView();
+	}
+	/**
+	 * 用户列表
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST,value="auth/userlist")
+	public JsonResult userList(User user)
+	{
+		UserService userService = (UserService)SpringContext.getBean("userService");
+		try{
+			List<User> list = userService.selectUserListPage(user);
+			this.setJsonResult(JsonResult.Result.RESULT_SUCCESS.getResult(), JsonResult.Result.RESULT_SUCCESS.getMsg(), "0", list, (int)user.getDatacount());
+		} catch (Exception e){
+			log.error(e.getMessage(),e);
+			this.setJsonResult(JsonResult.Result.RESULT_ERROR.getResult(), JsonResult.Result.RESULT_ERROR.getMsg(), "0", null, 0);
+		}
+		return this.getJsonResult();
 	}
 	/**
 	 * 注销
@@ -71,10 +92,10 @@ public class Userc extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value="logout")
-	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response)
+	public ModelAndView logout(HttpServletRequest request)
 	{
-		this.setPath("login");
-		SessionUtil.removeSession(request,response);
+		this.setPath("redirect:login");
+		SessionUtil.removeSession(request);
 		
 		return this.toView();
 	}

@@ -64,7 +64,12 @@ public class SessionUtil {
 		if(StringUtils.isNotEmpty(value))
 		{
 			RedisUtil redisUtil = (RedisUtil)SpringContext.getBean("redisUtil");
-			String session = new String(Base64.decodeBase64(redisUtil.get(value)),"utf-8");
+			String base64 = redisUtil.get(value);
+			if(StringUtils.isEmpty(base64))
+			{
+				return null;
+			}
+			String session = new String(Base64.decodeBase64(base64),"utf-8");
 			return JSON.parseObject(session, SessionBean.class);
 		}
 		return null;
@@ -86,12 +91,11 @@ public class SessionUtil {
 	 * 删除sessionkey
 	 * @param request
 	 */
-	public static void removeSession(HttpServletRequest request,HttpServletResponse response) 
+	public static void removeSession(HttpServletRequest request) 
 	{
 		Cookie[] cookies = request.getCookies();
 		if(cookies == null) return;
 		String value = getSessionKey(cookies);
-		response.addCookie(null);
 		if(StringUtils.isNotEmpty(value))
 		{
 			RedisUtil redisUtil = (RedisUtil)SpringContext.getBean("redisUtil");

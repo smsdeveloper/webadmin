@@ -1,6 +1,7 @@
 package com.egouer.admin.auth.services;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,13 @@ import com.egouer.admin.auth.common.UserEnum;
 import com.egouer.admin.auth.dao.AuthDao;
 import com.egouer.admin.auth.domain.User;
 import com.egouer.admin.auth.vo.SessionBean;
+import com.egouer.admin.base.BaseService;
 import com.egouer.admin.utils.DateUtils;
 import com.egouer.admin.utils.KeyedDigestMD5;
 import com.egouer.admin.utils.SessionUtil;
 
 @Service(value="userService")
-public class UserService {
+public class UserService extends BaseService{
 
 	@Autowired
 	private AuthDao authDao;
@@ -74,4 +76,10 @@ public class UserService {
 	    }
 	    return null;  
 	} 
+	
+	public List<User> selectUserListPage(User user)
+	{
+		this.setDaoSupport(authDao);
+		return this.selectListByPage("selectUserList", user);
+	}
 }

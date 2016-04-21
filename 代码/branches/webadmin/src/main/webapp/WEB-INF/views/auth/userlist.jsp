@@ -1,99 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <div class="row">
 	<ol class="breadcrumb">
 		<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-		<li class="active">Tables</li>
+		<li class="active">用户管理</li>
 	</ol>
 </div><!--/.row-->
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Tables</h1>
-	</div>
-</div><!--/.row-->
-		
-
-<div class="row">
-	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">Advanced Table</div>
+			<div class="panel-heading">用户管理</div>
 			<div class="panel-body">
-				<table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+				<form class="form-inline">
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">帐号</label>
+					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">注册时间</label>
+					<input readonly="readonly" class="datepicker form-control">
+				</div>
+				<div class="form-group">
+					<input readonly="readonly" class="datepicker form-control">
+				</div>
+				<div class="form-group col-md-offset-1">
+					<label class="control-label" for="name">注册时间</label>
+					<input readonly="readonly" class="datepicker form-control">
+				</div>
+				<div class="form-group">
+					<input readonly="readonly" class="datepicker form-control">
+				</div>
+				<button type="button" id="submit" class="btn btn-primary pull-right">查询</button>
+				</form>
+				<table class="table table-striped table-hover">
 				    <thead>
 				    <tr>
-				        <th data-field="state" data-checkbox="true" >Item ID</th>
-				        <th data-field="id" data-sortable="true">Item ID</th>
-				        <th data-field="name"  data-sortable="true">Item Name</th>
-				        <th data-field="price" data-sortable="true">Item Price</th>
+				        <th><input type="checkbox"/></th>
+				        <th>注册时间</th>
+				        <th>注册时间</th>
+				        <th>状态</th>
+				        <th>操作</th>
 				    </tr>
 				    </thead>
+				    <tbody id="tbody">
+					    <script id="userlist" type="text/html">
+						{{each rows as item}}
+				    	<tr>
+				    		<td><input type="checkbox" value="{{item.userid}}"/></td>
+				    		<td>{{item.username}}</td>
+				    		<td>{{item.addtime}}</td>
+				    		<td>{{item.status}}</td>
+							<td>修改</td>
+				    	</tr>
+						{{/each}}
+						</script>
+				    </tbody>
 				</table>
+				<nav  class="text-center">
+					<ul id="pagination"></ul>
+				</nav>
 			</div>
 		</div>
 	</div>
 </div><!--/.row-->	
-<div class="row">
-	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Basic Table</div>
-			<div class="panel-body">
-				<table data-toggle="table" data-url="tables/data2.json" >
-				    <thead>
-				    <tr>
-				        <th data-field="id" data-align="right">Item ID</th>
-				        <th data-field="name">Item Name</th>
-				        <th data-field="price">Item Price</th>
-				    </tr>
-				    </thead>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Styled Table</div>
-			<div class="panel-body">
-				<table data-toggle="table" id="table-style" data-url="tables/data2.json" data-row-style="rowStyle">
-				    <thead>
-				    <tr>
-				        <th data-field="id" data-align="right" >Item ID</th>
-				        <th data-field="name" >Item Name</th>
-				        <th data-field="price" >Item Price</th>
-				    </tr>
-				    </thead>
-				</table>
-				<script>
-				    $(function () {
-				        $('#hover, #striped, #condensed').click(function () {
-				            var classes = 'table';
-				
-				            if ($('#hover').prop('checked')) {
-				                classes += ' table-hover';
-				            }
-				            if ($('#condensed').prop('checked')) {
-				                classes += ' table-condensed';
-				            }
-				            $('#table-style').bootstrapTable('destroy')
-				                .bootstrapTable({
-				                    classes: classes,
-				                    striped: $('#striped').prop('checked')
-				                });
-				        });
-				    });
-				
-				    function rowStyle(row, index) {
-				        var classes = ['active', 'success', 'info', 'warning', 'danger'];
-				
-				        if (index % 2 === 0 && index / 2 < classes.length) {
-				            return {
-				                classes: classes[index / 2]
-				            };
-				        }
-				        return {};
-				    }
-				</script>
-			</div>
-		</div>
-	</div>
-</div><!--/.row-->	
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-paginator.min.js"></script>
+<script src="../js/template.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/bootstrap-datepicker.js"></script>
+<script src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="../js/auth/userlist.js"></script>

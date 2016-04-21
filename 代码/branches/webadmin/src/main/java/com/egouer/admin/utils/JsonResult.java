@@ -29,35 +29,37 @@ public class JsonResult {
 		}
 	}
 	
-	private long count;
+	private long total;
 	private String result;
 	private String code;
 	private String msg;
-	private Object data;
+	private Object rows;
 	
-	public JsonResult(String result,String msg,String code,Object data,long count)
+	public JsonResult(String result,String msg,String code,Object rows,long count)
 	{
 		this.result = result;
 		this.msg = msg;
 		this.code = code;
-		this.data = data;
-		this.count = count;
+		this.rows = rows;
+		this.total = count;
 	}
 	
-	public JsonResult(String result,String msg,Object data,long count)
+	public JsonResult(String result,String msg,Object rows,long count)
 	{
 		this.result = result;
 		this.msg = msg;
-		this.data = data;
-		this.count = count;
+		this.rows = rows;
+		this.total = count;
 	}
 	
-	public long getCount() {
-		return count;
+	public long getTotal() {
+		return total;
 	}
-	public void setCount(long count) {
-		this.count = count;
+
+	public void setTotal(long total) {
+		this.total = total;
 	}
+
 	public String getResult() {
 		return result;
 	}
@@ -76,10 +78,13 @@ public class JsonResult {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public Object getData() {
-		return data;
+
+	public Object getRows() {
+		return rows;
 	}
-	public void setData(Object data) {
-		this.data = data;
+
+	public void setRows(Object rows) {
+		this.rows = rows;
 	}
+	
 }

@@ -1,5 +1,6 @@
 package com.egouer.admin.utils;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -35,7 +36,12 @@ public class RedisUtil {
 
 			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
-				return new String(connection.get(key.getBytes()));
+				byte[] b = connection.get(key.getBytes());
+				if(null == b)
+				{
+					return null;
+				}
+				return new String(b);
 			}
 		});
 	}
