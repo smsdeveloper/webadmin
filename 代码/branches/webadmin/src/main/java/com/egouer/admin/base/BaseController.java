@@ -7,6 +7,7 @@ import com.egouer.admin.utils.JsonResult;
 public class BaseController {
 
 	protected static final String ERROR_MSG = "error_msg";
+	protected static final String RESULT_BACK = "result";
 	private JsonResult jsonResult;
 	private String path;
 

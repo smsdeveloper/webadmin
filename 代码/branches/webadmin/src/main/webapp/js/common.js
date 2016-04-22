@@ -7,7 +7,13 @@
 	    $.post(url,params).done(function(data){
 			if(data.result == 'success')
 			{
-				var pagecount = data.total/10 < 0 ? 1 : data.total%10 + 1;
+				console.log(data);
+				var pagecount = 1;
+				if(data.total>10)
+				{
+					pagecount = data.total%10 == 0 ? data.total/10 : data.total/10 + 1;
+				}
+				console.log(pagecount);
 				var options = {
 				    currentPage: page,
 				    bootstrapMajorVersion: 3,

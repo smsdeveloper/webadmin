@@ -25,6 +25,12 @@ public class UserService extends BaseService{
 	@Autowired
 	private AuthDao authDao;
 	
+	public AuthDao getAuthDao() {
+		return authDao;
+	}
+	public void setAuthDao(AuthDao authDao) {
+		this.authDao = authDao;
+	}
 	public boolean isRelogin(HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		if(SessionUtil.getSession(request) != null)
@@ -81,5 +87,15 @@ public class UserService extends BaseService{
 	{
 		this.setDaoSupport(authDao);
 		return this.selectListByPage("selectUserList", user);
+	}
+	
+	public void addUser(User user) throws Exception
+	{
+		user.setPassword(KeyedDigestMD5.getKeyedDigest(user.getPassword(), ""));
+		user.setStatus("正常");
+		if(this.getAuthDao().getSqlSession().insert("addUser", user) <= 0)
+		{
+			throw new Exception("新增用户失败");
+		}
 	}
 }

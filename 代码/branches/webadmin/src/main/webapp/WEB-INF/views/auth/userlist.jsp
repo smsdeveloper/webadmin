@@ -53,6 +53,7 @@
 					<input readonly="readonly" class="datepicker form-control">
 				</div>
 				<button type="button" id="submit" class="btn btn-primary pull-right">查询</button>
+				<button type="button" id="add" class="btn btn-default pull-right">新增用户</button>
 				</form>
 				<table class="table table-striped table-hover">
 				    <thead>
@@ -72,7 +73,7 @@
 				    		<td>{{item.username}}</td>
 				    		<td>{{item.addtime}}</td>
 				    		<td>{{item.status}}</td>
-							<td>修改</td>
+							<td><a href="javascript:void(0)" onclick="openpanel({{item.userid}})">修改</a></td>
 				    	</tr>
 						{{/each}}
 						</script>
@@ -92,4 +93,6 @@
 <script src="../js/common.js"></script>
 <script src="../js/bootstrap-datepicker.js"></script>
 <script src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="../js/dialog-plus-min.js"></script>
 <script src="../js/auth/userlist.js"></script>
+

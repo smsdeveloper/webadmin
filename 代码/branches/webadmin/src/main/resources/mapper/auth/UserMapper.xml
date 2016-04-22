@@ -68,4 +68,16 @@
 		and t.userName like '%${username}%'
 	</if>
   </select>
+  
+  <select id="selectUserById" parameterType="com.egouer.admin.auth.domain.User" resultType="com.egouer.admin.auth.domain.User">
+  	select <include refid="Base_Column_List"/> from User t where t.userId = #{userid}
+  </select>
+  
+  <update id="updateUserById" parameterType="com.egouer.admin.auth.domain.User">
+  	update User t set t.userName = #{username}, t.updateTime = now() where t.userId = #{userid}
+  </update>
+  
+  <insert id="addUser" parameterType="com.egouer.admin.auth.domain.User">
+  	insert User(userName,password,addTime,`status`) values (#{username},#{password},now(),#{status})
+  </insert>
 </mapper>
