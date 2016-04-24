@@ -19,46 +19,25 @@
 					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
 				</div>
 				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">帐号</label>
-					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
-				</div>
-				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">帐号</label>
-					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
-				</div>
-				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">帐号</label>
-					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
-				</div>
-				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">帐号</label>
-					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
-				</div>
-				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">帐号</label>
-					<input id="name" name="name" type="text" placeholder="查询帐号" class="form-control">
-				</div>
-				<div class="form-group col-md-offset-1">
 					<label class="control-label" for="name">注册时间</label>
 					<input readonly="readonly" class="datepicker form-control">
 				</div>
 				<div class="form-group">
 					<input readonly="readonly" class="datepicker form-control">
 				</div>
-				<div class="form-group col-md-offset-1">
-					<label class="control-label" for="name">注册时间</label>
-					<input readonly="readonly" class="datepicker form-control">
-				</div>
 				<div class="form-group">
-					<input readonly="readonly" class="datepicker form-control">
+					<button type="button" id="submit" class="btn btn-primary pull-right">查询</button>
 				</div>
-				<button type="button" id="submit" class="btn btn-primary pull-right">查询</button>
-				<button type="button" id="add" class="btn btn-default pull-right">新增用户</button>
 				</form>
+				<div class="form-group">
+					<button type="button" id="openuser" class="btn btn-default">启用</button>
+					<button type="button" id="stopuser" class="btn btn-default">停用</button>
+					<button type="button" id="add" class="btn btn-default pull-right">新增用户</button>
+				</div>
 				<table class="table table-striped table-hover">
 				    <thead>
 				    <tr>
-				        <th><input type="checkbox"/></th>
+				        <th><input id="all" type="checkbox"/></th>
 				        <th>注册时间</th>
 				        <th>注册时间</th>
 				        <th>状态</th>
@@ -71,9 +50,11 @@
 				    	<tr>
 				    		<td><input type="checkbox" value="{{item.userid}}"/></td>
 				    		<td>{{item.username}}</td>
-				    		<td>{{item.addtime}}</td>
+				    		<td>{{item.addtime | dateformat:'yyyy-MM-dd hh:mm:ss'}}</td>
 				    		<td>{{item.status}}</td>
-							<td><a href="javascript:void(0)" onclick="openpanel({{item.userid}})">修改</a></td>
+							<td><a href="javascript:void(0)" onclick="openpanel({{item.userid}})">修改</a>
+							{{item.userid | chargestatus:item.stastus}}
+							</td>
 				    	</tr>
 						{{/each}}
 						</script>
@@ -90,9 +71,8 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/bootstrap-paginator.min.js"></script>
 <script src="../js/template.js"></script>
-<script src="../js/common.js"></script>
 <script src="../js/bootstrap-datepicker.js"></script>
 <script src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
 <script src="../js/dialog-plus-min.js"></script>
+<script src="../js/common.js"></script>
 <script src="../js/auth/userlist.js"></script>
-
