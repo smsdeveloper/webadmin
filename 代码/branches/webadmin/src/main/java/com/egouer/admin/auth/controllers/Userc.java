@@ -13,16 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-/**
- * 
- * @description 用户控制器
- * @author lifan.sun
- * @version 
- * @since 
- * @date 2016年4月17日
- */
 import org.springframework.web.servlet.ModelAndView;
-
 import com.egouer.admin.auth.domain.User;
 import com.egouer.admin.auth.dto.UserDto;
 import com.egouer.admin.auth.services.UserService;
@@ -31,6 +22,15 @@ import com.egouer.admin.utils.CheckUtil;
 import com.egouer.admin.utils.JsonResult;
 import com.egouer.admin.utils.SessionUtil;
 import com.egouer.admin.utils.SpringContext;
+
+/**
+ * 
+ * @description 用户控制器
+ * @author lifan.sun
+ * @version 
+ * @since 
+ * @date 2016年4月17日
+ */
 @RestController
 public class Userc extends BaseController{
 	private static final Logger log = LoggerFactory.getLogger(Userc.class);
@@ -195,7 +195,7 @@ public class Userc extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST,value="auth/chargestatus")
-	public JsonResult chargestatus(UserDto userDto)
+	public JsonResult chargeStatus(UserDto userDto)
 	{
 		UserService userService = (UserService)SpringContext.getBean("userService");
 		try{

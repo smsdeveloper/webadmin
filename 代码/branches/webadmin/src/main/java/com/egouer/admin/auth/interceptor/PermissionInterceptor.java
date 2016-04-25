@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.egouer.admin.auth.domain.Function;
 import com.egouer.admin.auth.vo.SessionBean;
 import com.egouer.admin.utils.SessionUtil;
 
@@ -47,6 +48,28 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			SessionBean sessionBean = SessionUtil.getSession(request);
 			if (sessionBean == null) {
 				log.info("session error:{}", request.getParameterMap());
+				response.sendRedirect(LOGIN_ACTION);
+				return false;
+			}
+			/**
+			 * 权限控制
+			 */
+			if(sessionBean.getFunctions() == null)
+			{
+				response.sendRedirect(LOGIN_ACTION);
+				return false;
+			}
+			int i = 0;
+			for(Function function : sessionBean.getFunctions())
+			{
+				if(function.getFunctiontype().equals("权限") && 
+						function.getFunctionurl().equals(urlPath))
+				{
+					i++;
+				}
+			}
+			if(i == 0)
+			{
 				response.sendRedirect(LOGIN_ACTION);
 				return false;
 			}

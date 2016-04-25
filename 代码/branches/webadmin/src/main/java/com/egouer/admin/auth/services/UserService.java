@@ -1,6 +1,7 @@
 package com.egouer.admin.auth.services;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.egouer.admin.auth.common.UserEnum;
 import com.egouer.admin.auth.dao.AuthDao;
+import com.egouer.admin.auth.domain.Function;
+import com.egouer.admin.auth.domain.RoleFunction;
 import com.egouer.admin.auth.domain.User;
+import com.egouer.admin.auth.domain.UserRole;
 import com.egouer.admin.auth.vo.SessionBean;
 import com.egouer.admin.base.BaseService;
 import com.egouer.admin.utils.DateUtils;
@@ -32,10 +36,19 @@ public class UserService extends BaseService{
 	public void setAuthDao(AuthDao authDao) {
 		this.authDao = authDao;
 	}
+	/**
+	 * 校验是否已经登录过
+	 * @param request
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public boolean isRelogin(HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		if(SessionUtil.getSession(request) != null)
 		{
+			/**
+			 * 存在session会话，则直接进入首页
+			 */
 			return true;
 		}
 		return false;
@@ -59,6 +72,26 @@ public class UserService extends BaseService{
 			sessionBean.setLoginTime(DateUtils.strDate("yyyy-MM-dd HH:mm:ss"));
 			sessionBean.setUser(user);
 			sessionBean.setIp(this.getRemortIP(request));
+			
+			UserRole userRole = new UserRole();
+			userRole.setUserid(user.getUserid());
+			List<UserRole> userRoles = this.authDao.getSqlSession().selectList("selectListByUserId", userRole);
+			List<Function> functions = new ArrayList<Function>();
+			for(UserRole role : userRoles)
+			{
+				RoleFunction roleFunction = new RoleFunction();
+				roleFunction.setRolecode(role.getRolecode());
+				List<RoleFunction> roleFunctions = this.authDao.getSqlSession().selectList("selectListByRoleCode", roleFunction);
+				for(RoleFunction rfun : roleFunctions)
+				{
+					Function function = new Function();
+					function.setFunctioncode(rfun.getFunctioncode());
+					function.setStatus("正常");
+					function = this.getAuthDao().getSqlSession().selectOne("selectFunction", function);
+					functions.add(function);
+				}
+			}
+			sessionBean.setFunctions(functions);
 			Cookie cookie = SessionUtil.putSession(sessionBean);
 			response.addCookie(cookie);
 			return true;
