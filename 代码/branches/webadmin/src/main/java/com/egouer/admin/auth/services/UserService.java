@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.egouer.admin.auth.common.UserEnum;
 import com.egouer.admin.auth.dao.AuthDao;
@@ -96,6 +97,14 @@ public class UserService extends BaseService{
 		if(this.getAuthDao().getSqlSession().insert("addUser", user) <= 0)
 		{
 			throw new Exception("新增用户失败");
+		}
+	}
+	@Transactional(rollbackFor = Exception.class)
+	public void updateUserStatus(User users[])
+	{
+		for(User user : users)
+		{
+			this.authDao.getSqlSession().update("updateUserStatus", user);
 		}
 	}
 }

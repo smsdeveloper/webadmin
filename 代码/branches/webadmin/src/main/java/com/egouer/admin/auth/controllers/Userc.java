@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.egouer.admin.auth.domain.User;
+import com.egouer.admin.auth.dto.UserDto;
 import com.egouer.admin.auth.services.UserService;
 import com.egouer.admin.base.BaseController;
 import com.egouer.admin.utils.CheckUtil;
@@ -185,6 +186,29 @@ public class Userc extends BaseController{
 		}catch(Exception e){
 			log.error(e.getMessage(),e);
 			this.setJsonResult(JsonResult.Result.RESULT_EXCEPTION.getResult(), e.getMessage(), "0", null, 0);
+		}
+		return this.getJsonResult();
+	}
+	/**
+	 * 修改用户状态
+	 * @param userDto
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST,value="auth/chargestatus")
+	public JsonResult chargestatus(UserDto userDto)
+	{
+		UserService userService = (UserService)SpringContext.getBean("userService");
+		try{
+			if(userDto.getUsers().length == 0)
+			{
+				this.setJsonResult(JsonResult.Result.RESULT_ERROR.getResult(), JsonResult.Result.RESULT_ERROR.getMsg(), "", null, 0);
+				return this.getJsonResult();
+			}
+			userService.updateUserStatus(userDto.getUsers());
+			this.setJsonResult(JsonResult.Result.RESULT_SUCCESS.getResult(), JsonResult.Result.RESULT_SUCCESS.getMsg(), "", null, 0);
+		}catch(Exception e){
+			log.error(e.getMessage(),e);
+			this.setJsonResult(JsonResult.Result.RESULT_EXCEPTION.getResult(), e.getMessage(), "", null, 0);
 		}
 		return this.getJsonResult();
 	}

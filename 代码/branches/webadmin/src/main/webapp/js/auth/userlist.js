@@ -4,12 +4,12 @@ $(document).ready(function(){
 		{
 			return;
 		}
-		var userids = new Array();
+		var users = new Array();
 		$('tbody input:checkbox:checked').each(function(){
-			userids.push($(this).val());
+			var user = {useid:$(this).val(),status:status};
+			users.push(user);
 		});
-		var user = {userids:userids,status:status};
-		$.post(url,user).done(function(data){
+		$.post(url,users).done(function(data){
 			if(data.result == 'success'){
 				alert('操作成功！');
 			}
@@ -22,13 +22,13 @@ $(document).ready(function(){
 	$('#stopuser').bind('click',function(){
 		if(window.confirm("确定要停用这些用户吗？"))
 		{
-			chargestatus('auth/stopuser','停用');
+			chargestatus('auth/chargestatus','停用');
 		}
 	});
 	$('#openuser').bind('click',function(){
 		if(window.confirm("确定要恢复这些用户吗？"))
 		{
-			chargestatus('auth/stopuser','正常');
+			chargestatus('auth/chargestatus','正常');
 		}
 	});
 	$('.datepicker').each(function() {
@@ -97,9 +97,11 @@ function onestatus(status,userid)
 		msg = '确定要启用此用户吗？';
 		user.status = '正常';
 	}
+	var users = new Array();
+	users.push(user);
 	if(window.confirm(msg)){
 		
-		$.post("auth/chargestatus",user).done(function(data){
+		$.post("auth/chargestatus",users).done(function(data){
 			if(data.result == 'success'){
 				alert('操作成功');
 			}

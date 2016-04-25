@@ -80,4 +80,8 @@
   <insert id="addUser" parameterType="com.egouer.admin.auth.domain.User">
   	insert User(userName,password,addTime,`status`) values (#{username},#{password},now(),#{status})
   </insert>
+  
+  <update id="updateUserStatus" parameterType="com.egouer.admin.auth.domain.User">
+  	update User t set t.status = #{status},t.updateTime = now() where t.userid = #{userid}
+  </update>
 </mapper>
