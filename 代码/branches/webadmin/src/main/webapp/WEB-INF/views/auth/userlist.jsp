@@ -53,7 +53,7 @@
 				    		<td>{{item.addtime | dateformat:'yyyy-MM-dd hh:mm:ss'}}</td>
 				    		<td>{{item.status}}</td>
 							<td><a href="javascript:void(0)" onclick="openpanel({{item.userid}})">修改</a>
-							{{item.userid | chargestatus:item.stastus}}
+							{{item.userid |chargestatus:item.status}}
 							</td>
 				    	</tr>
 						{{/each}}
@@ -68,7 +68,6 @@
 	</div>
 </div><!--/.row-->	
 <script src="../js/jquery-1.11.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
 <script src="../js/bootstrap-paginator.min.js"></script>
 <script src="../js/template.js"></script>
 <script src="../js/bootstrap-datepicker.js"></script>

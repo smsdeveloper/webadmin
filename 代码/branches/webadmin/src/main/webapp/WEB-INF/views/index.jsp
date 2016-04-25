@@ -60,7 +60,7 @@
 			<li class="active"><a href="/index"><span class="glyphicon glyphicon-dashboard"></span> 首页</a></li>
 			<c:forEach items="${menuList}" var="list">
 			<c:if test="${list.supmenucode eq '0'}">
-			<li class="parent">
+			<li class="parent ">
 				<a href="#">
 					<span class="glyphicon glyphicon-list"></span> ${list.menuname} <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
 				</a>
@@ -87,17 +87,14 @@
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/auth/index.js"></script>
-	
 	<script>
 		!function ($) {
 		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-		        $(this).find('em:first').toggleClass("glyphicon-minus");      
+		        $(this).find('em:first').toggleClass("glyphicon-minus");    
 		    }); 
-		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		  	/* $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus"); */
 		}(window.jQuery);
-		$(document).ready(function(){
-			$('#content').load( "auth/usermanage" , false);
-		});
+	
 		$(window).on('resize', function () {
 		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
 		})

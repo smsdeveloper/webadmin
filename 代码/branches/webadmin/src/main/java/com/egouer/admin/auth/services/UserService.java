@@ -133,7 +133,7 @@ public class UserService extends BaseService{
 		}
 	}
 	@Transactional(rollbackFor = Exception.class)
-	public void updateUserStatus(User users[])
+	public void updateUserStatus(User[] users)
 	{
 		for(User user : users)
 		{

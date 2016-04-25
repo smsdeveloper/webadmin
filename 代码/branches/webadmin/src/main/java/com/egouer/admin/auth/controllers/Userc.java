@@ -10,12 +10,12 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.egouer.admin.auth.domain.User;
-import com.egouer.admin.auth.dto.UserDto;
 import com.egouer.admin.auth.services.UserService;
 import com.egouer.admin.base.BaseController;
 import com.egouer.admin.utils.CheckUtil;
@@ -195,16 +195,16 @@ public class Userc extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST,value="auth/chargestatus")
-	public JsonResult chargeStatus(UserDto userDto)
+	public JsonResult chargeStatus(@RequestBody User[] users)
 	{
 		UserService userService = (UserService)SpringContext.getBean("userService");
 		try{
-			if(userDto.getUsers().length == 0)
+			if(users == null || users.length == 0)
 			{
 				this.setJsonResult(JsonResult.Result.RESULT_ERROR.getResult(), JsonResult.Result.RESULT_ERROR.getMsg(), "", null, 0);
 				return this.getJsonResult();
 			}
-			userService.updateUserStatus(userDto.getUsers());
+			userService.updateUserStatus(users);
 			this.setJsonResult(JsonResult.Result.RESULT_SUCCESS.getResult(), JsonResult.Result.RESULT_SUCCESS.getMsg(), "", null, 0);
 		}catch(Exception e){
 			log.error(e.getMessage(),e);

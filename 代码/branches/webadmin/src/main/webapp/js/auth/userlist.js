@@ -9,9 +9,16 @@ $(document).ready(function(){
 			var user = {useid:$(this).val(),status:status};
 			users.push(user);
 		});
-		$.post(url,users).done(function(data){
-			if(data.result == 'success'){
-				alert('操作成功！');
+		/*服务端接收对象数组，必须加上contentType=application/json，然后对数组对象进行序列化JSON.stringify*/
+		$.ajax({
+			type: 'post',
+			url:url,
+			contentType:'application/json',
+			data:JSON.stringify(users),
+			success:function(data){
+				if(data.result == 'success'){
+					alert('操作成功！');
+				}
 			}
 		});
 	};
@@ -66,6 +73,7 @@ $(document).ready(function(){
 			$('tbody input:checkbox').prop('checked',false);
 		}
 	});
+	template.config('escape',false); //输出html代码，不转义
 	/**
 	 * 格式化时间
 	 */
@@ -79,9 +87,9 @@ $(document).ready(function(){
 	template.helper('chargestatus', function (userid ,status) {
 		var html = "";
 		if(status == "正常"){
-			html = "<a href=\"javascript:void(0)\" onclick=\"onestatus('"+ status + "'," + userid + ")\"”>停用</a>";
+			html = '<a href=\"javascript:void(0)\" onclick=\"onestatus(\''+ status + '\',' + userid + ')\">停用</a>';
 		}else{
-			html = "<a href=\"javascript:void(0)\" onclick=\"onestatus('"+ status + "'," + userid + ")\">启用</a>";
+			html = '<a href=\"javascript:void(0)\" onclick=\"onestatus(\''+ status + '\',' + userid + ')\">启用</a>';
 		}
 		return html;
 	});
@@ -100,10 +108,16 @@ function onestatus(status,userid)
 	var users = new Array();
 	users.push(user);
 	if(window.confirm(msg)){
-		
-		$.post("auth/chargestatus",users).done(function(data){
-			if(data.result == 'success'){
-				alert('操作成功');
+		console.log(users);
+		$.ajax({
+			type: 'post',
+			url:'auth/chargestatus',
+			contentType:'application/json',
+			data:JSON.stringify(users),
+			success:function(data){
+				if(data.result == 'success'){
+					alert('操作成功！');
+				}
 			}
 		});
 	}

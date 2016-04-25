@@ -26,7 +26,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(PermissionInterceptor.class);
 	private static final String HTML_SUFFIX = ".html";
-	private static final String LOGIN_ACTION = "login";
+	private static final String LOGIN_ACTION = "/login";
 
 	/**
 	 * 进入controller之前处理 1.校验session会话 2.判读操作员状态 3.拦截控制器权限
@@ -43,6 +43,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		}
 		String context = request.getContextPath();
 		String urlPath = request.getRequestURI().replaceFirst(context, "");
+		urlPath = urlPath.indexOf(".") != -1 ? urlPath.substring(0, urlPath.lastIndexOf(".")) : urlPath;
 		log.info("the context:{} request url:{}", context, urlPath);
 		try {
 			SessionBean sessionBean = SessionUtil.getSession(request);
